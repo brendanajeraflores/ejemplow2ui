@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>W2UI Demo</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="js/w2ui-1.5.rc1.js"></script>
+
+    <script>
+        //Indicar la localidad para cambiar el idioma en el plugin 
+        w2utils.locale('js/es-mx.json');
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/w2ui-1.5.rc1.css">
+    
+</head>
+<body>
+<div class="container">
+    <div id="grid" style="width: 100%; height: 400px;"></div>
+</div>
+<script type="text/javascript">
+$(function () {
+    $('#grid').w2grid({
+        //nombre del grid 
+        name: 'grid', 
+        //opciones del grid a mostrar
+        show: { 
+            toolbar: true,
+            footer: true,
+            toolbarReload   : false,
+            skipRecords     : true,
+            toolbarExport   : true
+        },
+        //indicar si realiza búsquedas en múltiples campos
+        multiSearch: true,
+
+        /*
+            --Indicar las columnas en las cuales se realizarán busquedas
+                - field : nombre de la columna
+                - caption : nombre de la columna que se mostrara en el grid
+                - type : tipo de dato que contiene la columna
+        */
+        searches: [
+            { field: 'apellido', caption: 'Primer apellido', type: 'text' },
+            { field: 'nombre', caption: 'Nombre', type: 'text' },
+            { field: 'email', caption: 'Email', type: 'list', options: { items: ['peter@gmail.com', 'jim@gmail.com', 'jdoe@gmail.com']} },
+            { field: 'fechaini', caption: 'Fecha inicio', type: 'date' },
+
+        ],
+
+        /*
+            --Indicar las columnas a mostrar en el grid
+                - field : nombre de la columna
+                - caption : nombre de la columna que se mostrará en el grid
+                - size : tamaño de la columna en el grid
+                - sortable : propiedad que indica si se podrán ordenar los registros en esa columna
+                - attr : propiedad para indicar si se mostrará al centro el registro
+                - render : propiedad para indicarel formato en que se mostrará el registro
+                - type :  tipo de dato que contiene la columna
+                - searchable : indicar si en esta columna se realizarán busquedas 
+                    En caso de que se indique false, no aparecerá como una opción a buscar siempre y cuando no se indique en la opción anterior "searches"
+        */
+        columns: [                
+            { field: 'recid', caption: 'ID', size: '50px', sortable: true, attr: 'align=center', type: 'text', searchable:false },
+            { field: 'apellido', caption: 'Primer apellido', size: '10%', sortable: true, type: 'text', searchable:true },
+            { field: 'nombre', caption: 'nombre', size: '10%', sortable: true, type: 'text', searchable:true},
+            { field: 'email', caption: 'Email', size: '10%', type: 'text', searchable:true },
+            { field: 'monto', caption: 'Monto', render:'money', size: '10%', type: 'money', searchable:true, sortable: true},
+            { field: 'fechaini', caption: 'Fecha inicio', render: 'date:mm/dd/yyyy', type: 'date', searchable:false, size: '110px' },
+            { field: 'fechafin', caption: 'Fecha fin', render: 'date:mm/dd/yyyy', type: 'date', searchable:false, size: '110px' },
+
+        ],
+
+        /*
+            --Indicar los registros en el grid
+                Utilizar los nombres indicados en la opción "columns", algunas pueden no incluirse.
+                En el caso de monto como en la opción "colums" se indico en render que era money, se puede ingresar como un dato numerico y al mostrar el grid aparecerá con signo de pesos y con centavos en 00 (en caso de no ser indicados)
+        */
+        records: [
+            { recid: 1, nombre: 'Jane', apellido: 'Doe', email: 'jdoe@gmail.com', monto: 2500, fechaini: 384052483664},
+            { recid: 2, nombre: 'Stuart', apellido: 'Motzart', email: 'jdoe@gmail.com', monto: 1004, fechaini: 1384052583664 },
+            { recid: 3, nombre: 'Jin', apellido: 'Franson', email: 'peter@gmail.com', monto: 473, fechaini: 1383620688314 },
+            { recid: 4, nombre: 'Susan', apellido: 'Ottie', email: 'jim@gmail.com', monto: 304.12, fechaini: 1384052463664 },
+            { recid: 5, nombre: 'Kelly', apellido: 'Silver', email: 'peter@gmail.com', monto: 9300.23, fechaini: 1383793476323 },
+            { recid: 6, nombre: 'Francis', apellido: 'Gatos', email: 'jdoe@gmail.com', monto: 3400, fechaini: 1383620688314 },
+            { recid: 7, nombre: 'Mark', apellido: 'Welldo', email: 'jim@gmail.com', monto: 2030, fechaini: 1383361499126 },
+            { recid: 8, nombre: 'Thomas', apellido: 'Bahh', email: 'jdoe@gmail.com', monto: 13004, fechaini: 1383793476323 },
+            { recid: 9, nombre: 'Sergei', apellido: 'Rachmaninov', email: 'jdoe@gmail.com', monto: 4043, fechaini: 1383620688314 },
+            { recid: 20, nombre: 'Jill', apellido: 'Doe', email: 'jdoe@gmail.com', monto: 474, fechaini: 1383361499126 },
+            { recid: 21, nombre: 'Frank', apellido: 'Motzart', email: 'jdoe@gmail.com', monto: 1704.25, fechaini: 1384052383664 },
+            { recid: 22, nombre: 'Peter', apellido: 'Franson', email: 'jdoe@gmail.com', monto: 7065, fechaini: 1383793476323 },
+            { recid: 23, nombre: 'Andrew', apellido: 'Ottie', email: 'jdoe@gmail.com', fechaini: 1384054483664 },
+            { recid: 24, nombre: 'Manny', apellido: 'Silver', email: 'jdoe@gmail.com', fechaini: 1383361499126 },
+            { recid: 25, nombre: 'Ben', apellido: 'Gatos', email: 'peter@gmail.com', fechaini: 1383793476323 },
+            { recid: 26, nombre: 'Doer', apellido: 'Welldo', email: 'jdoe@gmail.com', fechaini: 1383361499126 },
+            { recid: 27, nombre: 'Shashi', apellido: 'Bahh', email: 'jim@gmail.com', fechaini: 1384052483664 },
+            { recid: 28, nombre: 'Av', apellido: 'Rachmaninov', email: 'jim@gmail.com', fechaini: 1383620688314 }
+        ]
+    });    
+});
+</script>
+
+</body>
+</html>
